@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
+using Bale007.PASM;
 [CustomEditor(typeof(AIBrain))]
 public class AIBrainEditor : Editor
 {
@@ -12,7 +12,7 @@ public class AIBrainEditor : Editor
 
         var script = (AIBrain)target;
 
-        if(GUILayout.Button("Draw Gimoz"))
+        if (GUILayout.Button("Draw Gimoz"))
         {
             script.BuildAIBrain();
         }

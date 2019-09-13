@@ -5,6 +5,7 @@ using UnityEditor;
 using XNodeEditor;
 using XNode;
 using System;
+using Bale007.PASM;
 
 [CustomNodeGraphEditor(typeof(AIBevaiourGraph))]
 public class AIBehaviourGraphEditor : NodeGraphEditor

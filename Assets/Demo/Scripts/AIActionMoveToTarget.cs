@@ -1,15 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Bale007.PASM;
 namespace Demo
 {
     public class AIActionMoveToTarget : AIActionNode
     {
-        public string TargetTag;
-        public float MoveSpeed;
-
-        GameObject _target;
+        public float moveSpeed;
+        public SharedGameObject target;
         Vector3 _movement;
         Vector3 _pos;
 
@@ -17,14 +15,14 @@ namespace Demo
         {
             base.OnStateEnter();
 
-            _target = GameObject.FindGameObjectWithTag(TargetTag);
+            target.Init(brain);
         }
 
         public override void OnStateExit()
         {
             base.OnStateExit();
 
-            _target = null;
+            target.Dispose();
         }
 
         public override void Tick()
@@ -34,16 +32,16 @@ namespace Demo
 
         void MoveToTarget()
         {
-            if(_target == null)
+            if(target.value == null)
             {
                 return;
             }
 
-            _movement = (_target.transform.position - brain.transform.position).normalized;
+            _movement = (target.value.transform.position - brain.transform.position).normalized;
 
             _pos = brain.transform.position;
 
-            _pos += _movement * MoveSpeed * Time.deltaTime;
+            _pos += _movement * moveSpeed * Time.deltaTime;
 
             brain.transform.position = _pos;
         }

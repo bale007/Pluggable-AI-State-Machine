@@ -1,28 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Bale007.PASM;
 namespace Demo
 {
     public class AIActionLookAtTarget : AIActionNode
     {
-        public string TargetTag;
-
-
-        GameObject _target;
+        public SharedGameObject target;
 
         public override void OnStateEnter()
         {
             base.OnStateEnter();
 
-            _target = GameObject.FindGameObjectWithTag(TargetTag);
+            target.Init(brain);
         }
 
         public override void OnStateExit()
         {
             base.OnStateExit();
 
-            _target = null;
+            target.Dispose();
         }
 
         public override void Tick()
@@ -32,12 +29,12 @@ namespace Demo
 
         void LookAtTarget()
         {
-            if(_target == null)
+            if(target.value == null)
             {
                 return;
             }
 
-            brain.transform.LookAt(_target.transform);
+            brain.transform.LookAt(target.value.transform);
         }
 
 

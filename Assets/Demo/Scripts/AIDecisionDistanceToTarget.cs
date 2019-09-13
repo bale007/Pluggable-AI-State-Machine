@@ -1,33 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Bale007.PASM;
 namespace Demo
 {
     public class AIDecisionDistanceToTarget : AIDecisionNode
     {
         public enum CompareModes { Less, Equal, Greater }
 
-        public Color GizmoColour;
-        public CompareModes Compare;
-        public float Distance;
-        public string TargetTag;
+        public Color gimozColour;
+        public CompareModes compare;
+        public float distance;
+        public SharedGameObject target;
 
-        GameObject _target;
         float _distance;
 
         public override void OnStateEnter()
         {
             base.OnStateEnter();
 
-            _target = GameObject.FindGameObjectWithTag(TargetTag);
+            target.Init(brain);
         }
 
         public override void OnStateExit()
         {
             base.OnStateExit();
 
-            _target = null;
+            target.Dispose();
         }
 
         public override bool Decide()
@@ -39,24 +38,24 @@ namespace Demo
         {
             base.OnDrawGimoz();
 
-            Gizmos.color = GizmoColour;
-            Gizmos.DrawWireSphere(brain.transform.position, Distance);
+            Gizmos.color = gimozColour;
+            Gizmos.DrawWireSphere(brain.transform.position, distance);
         }
 
         bool CompareDistance()
         {
-            if(_target == null)
+            if(target.value == null)
             {
                 return false;
             }
 
-            _distance = (_target.transform.position - brain.transform.position).magnitude;
+            _distance = (target.value.transform.position - brain.transform.position).magnitude;
 
-            switch (Compare)
+            switch (compare)
             {
-                case CompareModes.Equal: return Distance == _distance;
-                case CompareModes.Less: return Distance > _distance;
-                case CompareModes.Greater: return Distance < _distance;
+                case CompareModes.Equal: return distance == _distance;
+                case CompareModes.Less: return distance > _distance;
+                case CompareModes.Greater: return distance < _distance;
             }
 
             return false;

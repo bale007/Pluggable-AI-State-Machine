@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using XNodeEditor;
-
+using Bale007.PASM;
 [CustomNodeEditor(typeof(AINode))]
 public class AINodeEditor : NodeEditor
 {
